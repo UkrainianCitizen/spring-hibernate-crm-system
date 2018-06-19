@@ -14,20 +14,21 @@
   
    <dependencies>
    
-        <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+        <!-- AOP -->
 		<dependency>
 		    <groupId>org.aspectj</groupId>
 		    <artifactId>aspectjweaver</artifactId>
 		    <version>1.9.1</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+		<!-- Logging  -->
 		<dependency>
 		    <groupId>org.slf4j</groupId>
 		    <artifactId>slf4j-api</artifactId>
 		    <version>1.7.25</version>
-		</dependency>
+		</dependency>	
 		
+		<!-- You should provide a log implementation -->
 
         <!-- Spring -->
         <dependency>
