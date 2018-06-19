@@ -51,5 +51,18 @@ public class CRMLoggingAspect {
 	}
 	
 	// add @AfterReturning advice
+	@AfterReturning(
+			pointcut="forAppFlow()",
+			returning="theResult"
+			)
+	public void afterReturning(JoinPoint theJoinPoint, Object theResult) {
+		
+		//display the method we are returning from
+		String theMethod = theJoinPoint.getSignature().toShortString();
+		myLogger.info("=====>> in @AfterReturning: from method: " + theMethod);
+		
+		//display the data returned
+		myLogger.info("=====>> Result: " + theResult);
+	}
 
 }
