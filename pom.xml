@@ -13,6 +13,22 @@
   </properties>
   
    <dependencies>
+   
+        <!-- AOP -->
+		<dependency>
+		    <groupId>org.aspectj</groupId>
+		    <artifactId>aspectjweaver</artifactId>
+		    <version>1.9.1</version>
+		</dependency>
+		
+		<!-- Logging  -->
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-api</artifactId>
+		    <version>1.7.25</version>
+		</dependency>	
+		
+		<!-- You should provide a log implementation -->
 
         <!-- Spring -->
         <dependency>
