@@ -17,9 +17,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
@@ -32,7 +31,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 @EnableAspectJAutoProxy
 @EnableTransactionManagement
 @PropertySource({ "classpath:persistence-mysql.properties", "classpath:app.properties" })
-public class WebAppConfig extends WebMvcConfigurerAdapter {
+public class WebAppConfig implements WebMvcConfigurer{
 	
 	@Autowired
 	private Environment env;
@@ -77,12 +76,25 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		myDataSource.setPassword(env.getProperty("jdbc.password"));
 		
 		// set connection pool properties
-		myDataSource.setInitialPoolSize(Integer.parseInt(env.getProperty("connection.pool.initialPoolSize")));
-		myDataSource.setMinPoolSize(Integer.parseInt(env.getProperty("connection.pool.minPoolSize")));
-		myDataSource.setMaxPoolSize(Integer.parseInt(env.getProperty("connection.pool.maxPoolSize")));		
-		myDataSource.setMaxIdleTime(Integer.parseInt(env.getProperty("connection.pool.maxIdleTime")));
+		myDataSource.setInitialPoolSize(getIntProperty("connection.pool.initialPoolSize"));
+		myDataSource.setMinPoolSize(getIntProperty("connection.pool.minPoolSize"));
+		myDataSource.setMaxPoolSize(getIntProperty("connection.pool.maxPoolSize"));		
+		myDataSource.setMaxIdleTime(getIntProperty("connection.pool.maxIdleTime"));
 
 		return myDataSource;
+	}
+	
+	//a helper method
+	//read environment property and convert to int
+	private int getIntProperty(String propName) {
+		
+		String propVal = env.getProperty(propName);
+		
+		//convert String to an int
+		int intPropVal = Integer.parseInt(propVal);
+		
+		return intPropVal;
+			
 	}
 	
 	private Properties getHibernateProperties() {
@@ -122,34 +134,29 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		return txManager;
 	}
 	
-	@Override
-	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+//	@Override
+//	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 				
 		// NOTE:
 		
-		// This code is for Spring 4. Will also work in Spring 5 ... but it is deprecated in Spring 5. 
+		// This code is for Spring 4. It will also work in Spring 5 ... but it is deprecated in Spring 5. 
 		// See separate note below regarding Spring 5.
-		
-		//
+
 		// Anyways, for Spring 4, this method is needed because (from the docs):
-		//
-		// Configure a handler to delegate unhandled requests by forwarding to the Servlet container's 
-		// "default" servlet. A common use case for this is when the DispatcherServlet is mapped to 
-		// "/" thus overriding the Servlet container's default handling of static resources. 
 		
-		// so we need to add the following line
-		configurer.enable();
-	}
+		// `Configure a handler to delegate unhandled requests by forwarding to the Servlet container's 
+		// "default" servlet. A common use case for this is when the DispatcherServlet is mapped to 
+		// "/" thus overriding the Servlet container's default handling of static resources.` 
+		
+		//Next line is for the Spring 4 ... 
+		/*configurer.enable();*/
+//	}
 	
 	// NOTE: 
 	//
-	// If using Spring 5, you don't need the "configureDefault*" method above. In fact, with
-	// Spring 5, WebMvcConfigurerAdapter has been deprecated. Instead your class should implement, WebMvcConfigurer.
-	//
-	// The WebMvcConfigurer class has default method implementations and uses Java 8 default method support.
-	//	
-	//
+	// If using Spring 5, you don't need the "configureDefault*(**)" method above.
 	
+	//Just implement WebMvcConfigurer class. It has default method implementations 
+	//and uses Java 8 default method support.
+		
 }
-
-
