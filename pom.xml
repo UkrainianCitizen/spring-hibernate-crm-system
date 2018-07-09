@@ -97,17 +97,17 @@
     <finalName>spring-web-customer-tracker</finalName>
     
     <plugins>
-    
     <!-- Builds a Web Application Archive (WAR) file from the project output 
     and its dependencies. -->     
     <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>3.2.0</version>
         <configuration>
-          <warSourceDirectory>WebContent</warSourceDirectory>
+          <warSourceDirectory>src/main/webapp</warSourceDirectory>
         </configuration>
       </plugin>   
       
-    </plugins>    
+    </plugins> 
+       
   </build>
 </project>
