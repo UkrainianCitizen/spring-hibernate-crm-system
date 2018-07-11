@@ -25,7 +25,8 @@ import java.util.Properties;
 @EnableWebMvc
 @EnableAspectJAutoProxy
 @EnableTransactionManagement
-@PropertySource({ "classpath:persistence-mysql.properties", "classpath:app.properties" })
+@PropertySource({ "classpath:persistence-mysql.properties", "classpath:app.properties",
+        "classpath:security-persistence-mysql.properties"})
 public class WebAppConfig implements WebMvcConfigurer{
 	
 	@Autowired
@@ -122,6 +123,46 @@ public class WebAppConfig implements WebMvcConfigurer{
 		
 		return sessionFactory;
 	}
+
+    // define a bean for security data source
+    @Bean
+    public DataSource securityDataSource() {
+
+        // create connection pool
+        ComboPooledDataSource securityDataSource
+                = new ComboPooledDataSource();
+
+        // set the jdbc driver class
+        try {
+            securityDataSource.setDriverClass(env.getProperty("security.jdbc.driver"));
+        } catch (PropertyVetoException exc) {
+            throw new RuntimeException(exc);
+        }
+
+        // log the connection props
+        // for sanity's sake, log this info
+        // just to make sure we are REALLY reading data from properties  file
+        logger.info(">>> security.jdbc.url=" +
+                env.getProperty("security.jdbc.url"));
+        logger.info(">>> security.jdbc.user=" +
+                env.getProperty("security.jdbc.user"));
+
+        // set database connection props
+        securityDataSource.setJdbcUrl(env.getProperty("security.jdbc.url"));
+        securityDataSource.setUser(env.getProperty("security.jdbc.user"));
+        securityDataSource.setPassword(env.getProperty("security.jdbc.password"));
+
+        // set connection pool props
+        securityDataSource.setInitialPoolSize(
+                getIntProperty("security.connection.pool.initialPoolSize"));
+        securityDataSource.setMinPoolSize(
+                getIntProperty("security.connection.pool.minPoolSize"));
+        securityDataSource.setMaxPoolSize(
+                getIntProperty("security.connection.pool.maxPoolSize"));
+        securityDataSource.setMaxIdleTime(
+                getIntProperty("security.connection.pool.maxIdleTime"));
+        return securityDataSource;
+    }
 	
 	@Bean
 	@Autowired
