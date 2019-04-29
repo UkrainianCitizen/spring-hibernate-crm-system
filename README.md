@@ -1,6 +1,6 @@
 # spring-hibernate-crm-system
 
-A simple CRM system based on Spring MVC and Hibernate.
+A simple CRM system, which is based on pure Spring and Hibernate, incorporating Spring Security and Spring AOP.
 
 ![spring-hibernate-db-app-screenshot](https://raw.github.com/UkrainianCitizen/spring-hibernate-crm-system/master/screenshots/crm-image.png)
 
@@ -20,6 +20,6 @@ A simple CRM system based on Spring MVC and Hibernate.
  4. Deploy project on your local server.
 ## Note
 
-Project was built as a result of [Spring & Hibernate for Beginners Course](https://www.udemy.com/spring-hibernate-tutorial/learn/v4/overview).
+Project was built as a part of [Spring & Hibernate for Beginners Course](https://www.udemy.com/spring-hibernate-tutorial/learn/v4/overview).
  
  
