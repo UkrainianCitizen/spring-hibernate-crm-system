@@ -5,7 +5,7 @@ A simple CRM system, which is based on pure Spring and Hibernate, incorporating 
 ![spring-hibernate-db-app-screenshot](https://raw.github.com/UkrainianCitizen/spring-hibernate-crm-system/master/screenshots/crm-image.png)
 
 ## Getting started
- 1. Install [Apache Tomcat®](http://tomcat.apache.org/download-80.cgi) and hook it up with IDE of your choice.
+ 1. Install [Apache Tomcat®](https://tomcat.apache.org/) and hook it up with IDE of your choice.
  
  2. Install [MySQL Server](https://dev.mysql.com/downloads/mysql/) on your machine
  or refer to either of these:      
@@ -18,8 +18,3 @@ A simple CRM system, which is based on pure Spring and Hibernate, incorporating 
     [02-load-500-fake-customers.sql](sql-scripts/main/02-load-500-fake-customers.sql)    
     [03-setup-spring-security-bcrypt-demo-database.sql](sql-scripts/security/03-setup-spring-security-bcrypt-demo-database.sql)
  4. Deploy project on your local server.
-## Note
-
-Project was built as a part of [Spring & Hibernate for Beginners Course](https://www.udemy.com/spring-hibernate-tutorial/learn/v4/overview).
- 
- 
